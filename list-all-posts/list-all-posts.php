@@ -21,7 +21,7 @@ class ListAllPosts extends WP_Widget {
     */
     public function widget($argumentos, $instancia) {
         global $wpdb;
-
+		$idBlog = get_current_blog_id();
         $args = array(
             'network_id' => 1,
             'public'     => null,
@@ -42,6 +42,7 @@ class ListAllPosts extends WP_Widget {
             //if(get_current_blog_id() != $blog['blog_id'] ){
 
                  switch_to_blog($blog['blog_id']);
+                 
                  $args = array( 'posts_per_page' => $instancia['qtd_post'],'order'=> 'DESC', 'orderby' => 'date','post_status' => 'publish');
                  $posts  = get_posts($args);
                  
@@ -63,7 +64,7 @@ class ListAllPosts extends WP_Widget {
         
         echo '</dl>';
         echo $argumentos['after_widget'];
-        restore_current_blog();
+        switch_to_blog($idBlog );
     }
     public function update($nova_instancia, $instancia_antiga) {            
         $instancia = array_merge($instancia_antiga, $nova_instancia);
