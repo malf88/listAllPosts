@@ -63,6 +63,7 @@ class ListAllPosts extends WP_Widget {
         
         echo '</dl>';
         echo $argumentos['after_widget'];
+        restore_current_blog();
     }
     public function update($nova_instancia, $instancia_antiga) {            
         $instancia = array_merge($instancia_antiga, $nova_instancia);
